@@ -14,6 +14,14 @@
 
     <script type="text/javascript">
 
+        async function deletePerson(pk) {
+            await fetch("[[ @{${urlAPIablist}} ]]"+"?id="+pk, {
+                method: "DELETE",
+            });
+            document.location.href = "[[ @{${rootUrl}} ]]"
+        }
+
+
         function trOnClick() {
         // Если строка уже выделена, то снимаем выделение
             if (!this.classList.contains('selected')) {

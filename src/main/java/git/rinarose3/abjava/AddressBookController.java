@@ -19,12 +19,12 @@ public class AddressBookController {
     public List<AddressBook> getPeople() {
 
         return addressBookRepository.findAll();
-    }
+    };
 
     @PostMapping
     public AddressBook postPeople(@RequestBody AddressBook addressBook) {
         return addressBookRepository.save(addressBook);
-    }
+    };
 
     @PutMapping
     public ResponseEntity<AddressBook> putPeople(@RequestBody AddressBook addressBook) {
@@ -44,6 +44,12 @@ public class AddressBookController {
 
         return ResponseEntity.ok(updatedAddressBook);
 
-    }
+    };
+
+    @DeleteMapping
+    public ResponseEntity<String> deletePeople(@RequestParam("id") Long pid) {
+        addressBookRepository.deleteById(pid);
+        return ResponseEntity.ok("Удаление произведено успешно");
+    };
 
 }
