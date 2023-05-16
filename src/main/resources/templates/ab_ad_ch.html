@@ -1,0 +1,33 @@
+<h2 th:text="${Title}"></h2>
+<form id="myForm" action="javascript: sandForm()">
+
+    <input  th:if="${requestType == 'PUT'}" type="hidden" name="id" th:value="${id}">
+
+    <p th:each="f : ${fields}">
+        <label th:for="'id_'+${f[field]}" th:text="${f[label]}+':'"></label>
+        <input type="text" th:name="${f[field]}" th:id="'id_'+${f[field]}" th:value="${f[value]}" required>
+    </p>
+
+    <p><button type="submit">Отправить</button></p>
+</form>
+<script type="text/javascript">
+    async function sandForm(){
+
+        var form = document.getElementById("myForm");
+        var formData = new FormData(form);
+
+        var jsonData = {};
+        formData.forEach(function(value, key) {
+            jsonData[key] = value;
+        });
+
+        await fetch("[[ @{${urlAPIablist}} ]]", {
+            method: "[[ ${requestType} ]]",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jsonData),
+        });
+        document.location.href = "[[ @{${rootUrl}} ]]"
+    }
+</script>
