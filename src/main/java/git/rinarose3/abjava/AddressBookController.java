@@ -13,43 +13,35 @@ import java.util.Optional;
 public class AddressBookController {
 
     @Autowired
-    private AddressBookRepository addressBookRepository;
+    private AddressBookService addressBookService;
 
     @GetMapping
     public List<AddressBook> getPeople() {
-
-        return addressBookRepository.findAll();
+        return addressBookService.getAllAddressBook();
     };
 
     @PostMapping
-    public AddressBook postPeople(@RequestBody AddressBook addressBook) {
-        return addressBookRepository.save(addressBook);
+    public ResponseEntity<AddressBook> postPeople(@RequestBody AddressBook addressBook) {
+        return ResponseEntity.ok(addressBookService.saveAddressBook(addressBook));
     };
 
     @PutMapping
     public ResponseEntity<AddressBook> putPeople(@RequestBody AddressBook addressBook) {
-        Optional<AddressBook> addressBookOptional = addressBookRepository.findById(addressBook.getId());
-        if (addressBookOptional.isEmpty()) {
+        try {
+            return ResponseEntity.ok(addressBookService.updateAddressBook(addressBook));
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
-
-        AddressBook existingAddressBook = addressBookOptional.get();
-        existingAddressBook.setName(addressBook.getName());
-        existingAddressBook.setFam(addressBook.getFam());
-        existingAddressBook.setMail(addressBook.getMail());
-        existingAddressBook.setTel(addressBook.getTel());
-        existingAddressBook.setNote(addressBook.getNote());
-
-        AddressBook updatedAddressBook = addressBookRepository.save(existingAddressBook);
-
-        return ResponseEntity.ok(updatedAddressBook);
-
     };
 
     @DeleteMapping
-    public ResponseEntity<String> deletePeople(@RequestParam("id") Long pid) {
-        addressBookRepository.deleteById(pid);
-        return ResponseEntity.ok("Удаление произведено успешно");
+    public ResponseEntity<String> deletePeople(@RequestParam("id") Long id) {
+        try {
+            addressBookService.deleteAddressBookById(id);
+            return ResponseEntity.ok("Удаление произведено успешно");
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     };
 
 }
