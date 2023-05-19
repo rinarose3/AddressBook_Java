@@ -2,7 +2,6 @@ package git.rinarose3.abjava;
 
 import jakarta.persistence.*;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,9 +15,7 @@ public class AddressBook{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private String fam;
     private String tel;
     private String mail;
@@ -27,27 +24,37 @@ public class AddressBook{
     public Long getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
-
     public String getFam() {
         return fam;
     }
-
     public String getTel() {
         return tel;
     }
-
     public String getMail() {
         return mail;
     }
-
     public String getNote() {
         return note;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setFam(String fam) {
+        this.fam = fam;
+    }
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+    public void setNote(String note) {
+        this.note = note;
+    }
 
     public List<HashMap<String,String>> getFieldNames() {
         List<HashMap<String, String>> fieldNames = new ArrayList<>();
@@ -90,27 +97,11 @@ public class AddressBook{
         return fieldNames;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setFam(String fam) {
-        this.fam = fam;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setData(AddressBook addressBook) {
+        this.name = addressBook.getName();
+        this.fam = addressBook.getFam();
+        this.tel = addressBook.getTel();
+        this.mail = addressBook.getMail();
+        this.note = addressBook.getNote();
     }
 }

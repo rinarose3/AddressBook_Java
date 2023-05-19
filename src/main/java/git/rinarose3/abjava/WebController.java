@@ -23,14 +23,14 @@ public class WebController {
     @Autowired
     private AddressBookRepository addressBookRepository;
     private final String rootUrl;
-    final String urlAPIablist = "/api/v1/ablist/";
+    private final String urlAPIablist;
     final String urlchange = "change/";
-
     private final List<HashMap<String, String>> menu;
 
     public WebController() {
         rootUrl = getClass().getAnnotation(RequestMapping.class).value()[0];
-        menu = new ArrayList<HashMap<String,String>>();
+        urlAPIablist = AddressBookController.class.getAnnotation(RequestMapping.class).value()[0];
+        menu = new ArrayList<>();
         HashMap<String, String> homeItem = new HashMap<>() {{
             put("title", "home");
             put("url_name", rootUrl);
@@ -95,7 +95,7 @@ public class WebController {
     }
 
     @GetMapping("/change/")
-    public String chang(Model model, @RequestParam("pk") Long pid) {
+    public String change(Model model, @RequestParam("pk") Long pid) {
         model.addAttribute("menu", menu);
         model.addAttribute("Title", "Изменение записи");
         model.addAttribute("headerTemplate", "ab_ad_ch");
@@ -110,6 +110,6 @@ public class WebController {
         }
         model.addAttribute("id", pid);
         return "index";
-    };
+    }
 
 }

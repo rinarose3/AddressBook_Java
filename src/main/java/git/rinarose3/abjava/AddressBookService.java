@@ -1,7 +1,6 @@
 package git.rinarose3.abjava;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +22,7 @@ public class AddressBookService {
 
     public AddressBook updateAddressBook(AddressBook addressBook) {
         AddressBook existingAddressBook = this.getAddressBookById(addressBook.getId());
-        existingAddressBook.setName(addressBook.getName());
-        existingAddressBook.setFam(addressBook.getFam());
-        existingAddressBook.setMail(addressBook.getMail());
-        existingAddressBook.setTel(addressBook.getTel());
-        existingAddressBook.setNote(addressBook.getNote());
+        existingAddressBook.setData(addressBook);
 
         return addressBookRepository.save(existingAddressBook);
     }

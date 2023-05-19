@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/ablist/")
@@ -18,12 +17,12 @@ public class AddressBookController {
     @GetMapping
     public List<AddressBook> getPeople() {
         return addressBookService.getAllAddressBook();
-    };
+    }
 
     @PostMapping
     public ResponseEntity<AddressBook> postPeople(@RequestBody AddressBook addressBook) {
         return ResponseEntity.ok(addressBookService.saveAddressBook(addressBook));
-    };
+    }
 
     @PutMapping
     public ResponseEntity<AddressBook> putPeople(@RequestBody AddressBook addressBook) {
@@ -32,7 +31,7 @@ public class AddressBookController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
-    };
+    }
 
     @DeleteMapping
     public ResponseEntity<String> deletePeople(@RequestParam("id") Long id) {
@@ -42,6 +41,6 @@ public class AddressBookController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
-    };
+    }
 
 }
