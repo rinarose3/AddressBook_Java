@@ -1,5 +1,7 @@
-package git.rinarose3.abjava;
+package git.rinarose3.abjava.service;
 
+import git.rinarose3.abjava.repository.AddressBookRepository;
+import git.rinarose3.abjava.models.AddressBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
