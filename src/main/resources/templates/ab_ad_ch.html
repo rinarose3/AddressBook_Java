@@ -1,5 +1,6 @@
 <h2 th:text="${Title}"></h2>
-<form id="myForm" action="javascript: sandForm()">
+<form id="myForm" action="javascript: sandForm();">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
     <input  th:if="${requestType == 'PUT'}" type="hidden" name="id" th:value="${id}">
 
@@ -19,15 +20,19 @@
         var jsonData = {};
         formData.forEach(function(value, key) {
             jsonData[key] = value;
+            console.log(value);
         });
 
         await fetch("[[ @{${urlAPIablist}} ]]", {
             method: "[[ ${requestType} ]]",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                 "X-CSRF-TOKEN": document.getElementsByName("_csrf")[0].value
             },
             body: JSON.stringify(jsonData),
         });
         document.location.href = "[[ @{${rootUrl}} ]]"
     }
+
+    console.log(document.cookie.split(';'));
 </script>
