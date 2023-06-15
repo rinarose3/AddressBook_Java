@@ -1,6 +1,7 @@
-package git.rinarose3.abjava;
+package git.rinarose3.abjava.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "addressbook")
-
+@Data
 public class AddressBook{
 
     @Id
@@ -20,41 +21,6 @@ public class AddressBook{
     private String tel;
     private String mail;
     private String note;
-
-    public Long getId() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getFam() {
-        return fam;
-    }
-    public String getTel() {
-        return tel;
-    }
-    public String getMail() {
-        return mail;
-    }
-    public String getNote() {
-        return note;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setFam(String fam) {
-        this.fam = fam;
-    }
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-    public void setNote(String note) {
-        this.note = note;
-    }
 
     public List<HashMap<String,String>> getFieldNames() {
         List<HashMap<String, String>> fieldNames = new ArrayList<>();
